@@ -9,5 +9,4 @@ services:
       context: .
       dockerfile: ApiPfx/Dockerfile
     ports:
-      - 8075:8075
-      - 8080:8080
+      - 8075:8080
