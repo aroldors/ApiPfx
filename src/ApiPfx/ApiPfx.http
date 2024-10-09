@@ -1,6 +1,6 @@
 @ApiPfx_HostAddress = http://localhost:5138
 
-GET {{ApiPfx_HostAddress}}/weatherforecast/
+POST {{ApiPfx_HostAddress}}/api/Pfx/read/
 Accept: application/json
 
 ###
