@@ -1,23 +1,23 @@
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS base
 WORKDIR /app
 EXPOSE 8075
 EXPOSE 8080
 
 ENV ASPNETCORE_URLS=http://+:8075
 
-USER app
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG configuration=Release
 WORKDIR /src
-COPY ["ApiPfx/ApiPfx.csproj", "ApiPfx/"]
-RUN dotnet restore "ApiPfx/ApiPfx.csproj"
+COPY ["ApiPfx.csproj", "./"]
+RUN dotnet restore "./ApiPfx.csproj"
+
 COPY . .
-WORKDIR "/src/ApiPfx"
+WORKDIR "/src/."
 RUN dotnet build "ApiPfx.csproj" -c $configuration -o /app/build
 
 FROM build AS publish
 ARG configuration=Release
-RUN dotnet publish "ApiPfx.csproj" -c $configuration -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "ApiPfx.csproj" -c $configuration -o /app/publish
 
 FROM base AS final
 WORKDIR /app
