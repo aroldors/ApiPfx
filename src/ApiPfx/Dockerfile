@@ -8,7 +8,7 @@ ENV ASPNETCORE_URLS=http://+:8075
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG configuration=Release
 WORKDIR /src
-COPY ["ApiPfx.csproj", "./"]
+COPY ["ApiPfx.csproj", "./src/"]
 RUN dotnet restore "ApiPfx.csproj"
 
 COPY . .
